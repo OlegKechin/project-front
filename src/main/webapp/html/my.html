@@ -1,11 +1,57 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>RPG</title>
     <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
     <link href="/css/my.css" rel="stylesheet">
 </head>
+
 <body>
 <h1>RPG admin panel</h1>
+<h2>Account panel</h2>
+<span>Count per page</span>
+<section>
+    <select name="Count_per_page" id="selectSize">
+        <option>3</option>
+        <option>6</option>
+        <option>10</option>
+        <option>20</option>
+    </select>
+</section>
+<table id="adminTable">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Race</th>
+        <th>Profession</th>
+        <th>Level</th>
+        <th>Birthday</th>
+        <th>Banned</th>
+    </tr>
+</table>
+<script>
+    let url = "/rest/players";
+    $.get(url, function (returns) {
+        returns.forEach(myFunction);
 
+        function myFunction(val, i) {
+            $('<tr>').html("<td>" +
+                val.id + "</td><td>" +
+                val.name + "</td><td>" +
+                val.title + "</td><td>" +
+                val.race + "</td><td>" +
+                val.profession + "</td><td>" +
+                val.level + "</td><td>" +
+                new Date().toLocaleDateString(val.birthday) + "</td><td>" +
+                val.banned + "</td>")
+                .appendTo('#adminTable');
+
+        }
+    })
+
+
+</script>
 </body>
 </html>
